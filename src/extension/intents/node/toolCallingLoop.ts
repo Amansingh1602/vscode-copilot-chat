@@ -35,6 +35,7 @@ import { ToolName } from '../../tools/common/toolNames';
 import { ToolCallCancelledError } from '../../tools/common/toolsService';
 import { ReadFileParams } from '../../tools/node/readFileTool';
 import { PauseController } from './pauseController';
+import { Mutable } from '../../../util/vs/base/common/types';
 
 
 export const enum ToolCallLimitBehavior {
@@ -119,7 +120,7 @@ export abstract class ToolCallingLoop<TOptions extends IToolCallingLoopOptions =
 	protected abstract getAvailableTools(): Promise<LanguageModelToolInformation[]>;
 
 	/** Creates the prompt context for the request. */
-	protected createPromptContext(availableTools: LanguageModelToolInformation[], outputStream: ChatResponseStream | undefined): IBuildPromptContext {
+	protected createPromptContext(availableTools: LanguageModelToolInformation[], outputStream: ChatResponseStream | undefined): Mutable<IBuildPromptContext> {
 		const { request } = this.options;
 		const chatVariables = new ChatVariablesCollection(request.references);
 
